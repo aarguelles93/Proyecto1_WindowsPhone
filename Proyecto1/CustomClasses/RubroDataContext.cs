@@ -20,5 +20,9 @@ namespace Proyecto1.CustomClasses
         // Specify a single table for the Rubros.
         public Table<Rubro> Rubros;
 
+        //====
+        public Table<Ciclo> Ciclos;
+        public Table<RubroPorCiclo> RubrosPorCiclos;
+
     }
 }

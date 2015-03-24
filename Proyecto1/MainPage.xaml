@@ -70,7 +70,7 @@
             <shell:ApplicationBarIconButton 
                 x:Name="appBarCancelButton" 
                 IconUri="/Images/appbar.transport.ff.rest.png" 
-                Text="Nuevo Ciclo"/>
+                Text="Nuevo Ciclo" Click="newCicleAppBarrButton_Click"/>
         </shell:ApplicationBar>
     </phone:PhoneApplicationPage.ApplicationBar>
 

@@ -8,9 +8,9 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Microsoft.Phone.Controls;
-
 using Proyecto1.CustomClasses;
 
 namespace Proyecto1
@@ -25,6 +25,9 @@ namespace Proyecto1
 
             //Set the page DataContext property to the ViewModel
             this.DataContext = App.ViewModel;
+
+            //Display current cicle on title
+            PanoramaRubros.Header = "Ciclo "+App.ViewModel.Ciclos.Count + "";
         }      
 
 
@@ -47,8 +50,17 @@ namespace Proyecto1
             if (RubrosListBox.SelectedIndex != -1)
             {
                 Rubro rubroTemp = (Rubro)RubrosListBox.SelectedItem;
-                MessageBox.Show(rubroTemp.RubroNombre);
+                NavigationService.Navigate(new Uri("/EditRubro.xaml?parameter="+rubroTemp.RubroId, UriKind.Relative));
             }
+        }
+       
+        //=============
+        //Start new Cicle
+        private void newCicleAppBarrButton_Click(object sender, EventArgs e)
+        {
+            App.ViewModel.StartNewCicle();
+            //Display current cicle on title
+            PanoramaRubros.Header = "Ciclo " + App.ViewModel.Ciclos.Count + "";
         }
 
 

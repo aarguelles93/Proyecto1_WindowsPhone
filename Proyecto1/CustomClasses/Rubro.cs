@@ -25,7 +25,8 @@ namespace Proyecto1.CustomClasses
         // Version column aids update performance.
         [Column(IsVersion = true)]
         private Binary _version;
-
+        
+        
         
 
     }

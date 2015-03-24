@@ -27,9 +27,33 @@
         </StackPanel>
 
         <!--ContentPanel. Colocar aquí el contenido adicional-->
-        <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
 
-        </Grid>
+        <StackPanel Grid.Row="1" Margin="12,0,10,0">
+            <TextBlock x:Name="CicloActual" Text="Ciclo Actual"
+                       FontSize="{StaticResource PhoneFontSizeLarge}"
+                       Margin="20,0,0,20"/>
+            <TextBlock Text="Valor Esperado"/>
+            <TextBox x:Name="tBValorEsperado" IsReadOnly="True"/>
+            <TextBlock Text="Valor Actual"/>
+            <TextBox x:Name="tBValorActual" IsReadOnly="True"/>
+            <Slider x:Name="slider" ValueChanged="Sliding"/>
+            
+        </StackPanel>
+
+
     </Grid>
+    <phone:PhoneApplicationPage.ApplicationBar>
+        <shell:ApplicationBar IsVisible="True" IsMenuEnabled="True">
+            <shell:ApplicationBarIconButton
+                x:Name="appBarOkButton"
+                IconUri="/Images/appbar.check.rest.png"
+                Text="Nuevo Rubro" Click="saveChangesInRubro"/>
+            <shell:ApplicationBarIconButton 
+                x:Name="appBarCancelButton" 
+                IconUri="/Images/appbar.cancel.rest.png" 
+                Text="Nuevo Ciclo" 
+                Click="appBarCancelButton_Click"/>
+        </shell:ApplicationBar>
+    </phone:PhoneApplicationPage.ApplicationBar>
 
 </phone:PhoneApplicationPage>
