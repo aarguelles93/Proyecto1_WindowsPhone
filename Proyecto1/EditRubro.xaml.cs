@@ -76,6 +76,7 @@ namespace Proyecto1
             {
                 if ((rubro.RubroId == currentRubro.RubroId) && (rubro.Ciclo.Cerrado == false))
                 {
+                    rubro.RubroValorEsperado = int.Parse(tBValorEsperado.Text);
                     rubro.RubroValorActual = int.Parse(tBValorActual.Text);
                     
                 }

@@ -19,8 +19,18 @@ namespace Proyecto1.CustomClasses
         public string RubroNombre{get;set;}        
         [Column(CanBeNull=false)]
         public string RubroTipo{get;set;}
+        private int _valorEsperado;
         [Column(CanBeNull=false)]
-        public int RubroValorEsperado {get;set;}
+        public int RubroValorEsperado 
+        {
+            get { return _valorEsperado; }
+            set 
+            { 
+                NotifyPropertyChanging("RubroValorEsperado");
+                _valorEsperado = value;
+                NotifyPropertyChanged("RubroValorEsperado");
+            }
+        }
 
         private int _valorActual;
         [Column(CanBeNull = false)]

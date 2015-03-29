@@ -33,9 +33,9 @@
                        FontSize="{StaticResource PhoneFontSizeLarge}"
                        Margin="20,0,0,20"/>
             <TextBlock Text="Valor Esperado"/>
-            <TextBox x:Name="tBValorEsperado" IsReadOnly="True"/>
+            <TextBox x:Name="tBValorEsperado"/>
             <TextBlock Text="Valor Actual"/>
-            <TextBox x:Name="tBValorActual" InputScope="Number"/>
+            <TextBox x:Name="tBValorActual" InputScope="Number" IsReadOnly="True"/>
             <Slider x:Name="slider" ValueChanged="Sliding" SmallChange="100" LargeChange="100"/>
             
         </StackPanel>
