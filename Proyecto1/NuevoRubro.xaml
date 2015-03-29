@@ -31,8 +31,8 @@
             <TextBlock Text="Nombre:"/>
             <TextBox x:Name="nombreRubro"/>
             <TextBlock Text="Tipo:"/>            
-            <RadioButton x:Name="esIngreso" GroupName="Tipo Rubro" Content="Ingreso" IsChecked="True"/>
-            <RadioButton x:Name="esEgreso" GroupName="Tipo Rubro" Content="Egreso"/>
+            <RadioButton x:Name="esIngreso" GroupName="Tipo Rubro" Content="Ingreso" Checked="HandleCheck" IsChecked="True"/>
+            <RadioButton x:Name="esEgreso" GroupName="Tipo Rubro" Content="Egreso" Checked="HandleCheck"/>
             <TextBlock Text="Valor esperado:"/>
             <TextBox x:Name="valorRubro" InputScope="Number"/>            
             

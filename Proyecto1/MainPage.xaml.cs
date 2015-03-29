@@ -44,6 +44,18 @@ namespace Proyecto1
             App.ViewModel.SaveChangesToDB();
         }
 
+        // When back to this page, refresh the collections from DB
+        protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
+        {
+            // Save changes to the database.
+            App.ViewModel.SaveChangesToDB();
+
+            App.ViewModel.LoadCollectionsFromDatabase();
+
+            base.OnNavigatedTo(e);
+            
+        }
+
         private void RubroSelected(object sender, GestureEventArgs e)
         {
             //Encuentra el Item Seleccionado

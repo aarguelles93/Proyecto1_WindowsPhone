@@ -22,7 +22,7 @@ namespace Proyecto1.CustomClasses
 
         //====
         public Table<Ciclo> Ciclos;
-        public Table<RubroPorCiclo> RubrosPorCiclos;
+        //Table<RubroPorCiclo> RubrosPorCiclos;
 
     }
 }

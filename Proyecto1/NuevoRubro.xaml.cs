@@ -15,13 +15,13 @@ namespace Proyecto1
     public partial class NuevoRubro : PhoneApplicationPage
     {
 
-        private String tipoRubro;
-        
+        private string tipoRubro;
+                
         public NuevoRubro()
         {
             InitializeComponent();
 
-            tipoRubro = "Ingreso";
+            
 
             //Set the page DataContext property to the ViewModel
             this.DataContext = App.ViewModel;
@@ -31,6 +31,7 @@ namespace Proyecto1
         {
             RadioButton rb = sender as RadioButton;
             tipoRubro = rb.Content.ToString();
+            
         }
 
 
@@ -45,7 +46,11 @@ namespace Proyecto1
                 {
                     RubroNombre = nombreRubro.Text,
                     RubroTipo = tipoRubro,
-                    RubroValor = int.Parse(valorRubro.Text.ToString())
+                    RubroValorEsperado = int.Parse(valorRubro.Text.ToString()),
+                    RubroValorActual = int.Parse(valorRubro.Text.ToString()),
+                    Ciclo = App.ViewModel.Ciclos.Last()
+                    
+                    
                 };
                 //Añadir al ViewModel
                 App.ViewModel.AddRubro(nuevoRubro);

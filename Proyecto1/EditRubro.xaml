@@ -35,8 +35,8 @@
             <TextBlock Text="Valor Esperado"/>
             <TextBox x:Name="tBValorEsperado" IsReadOnly="True"/>
             <TextBlock Text="Valor Actual"/>
-            <TextBox x:Name="tBValorActual" IsReadOnly="True"/>
-            <Slider x:Name="slider" ValueChanged="Sliding"/>
+            <TextBox x:Name="tBValorActual" InputScope="Number"/>
+            <Slider x:Name="slider" ValueChanged="Sliding" SmallChange="100" LargeChange="100"/>
             
         </StackPanel>
 

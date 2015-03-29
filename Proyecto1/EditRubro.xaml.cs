@@ -15,17 +15,19 @@ namespace Proyecto1
     public partial class EditRubro : PhoneApplicationPage
     {
         Rubro currentRubro;
+
         public EditRubro()
         {
             InitializeComponent();
             
-            
+           
 
         }
 
         
         protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
         {
+            currentRubro = null;
             //Obtener el rubro pasado por parámetros
             String parameter;
             if (NavigationContext.QueryString.TryGetValue("parameter", out parameter))
@@ -39,37 +41,48 @@ namespace Proyecto1
                     }
                 }
             }
-            tBValorEsperado.Text = currentRubro.RubroValor.ToString();
-            tBValorActual.Text = currentRubro.RubroValor.ToString(); //EDIT
 
-            slider.Maximum = currentRubro.RubroValor * 10;
-            slider.Minimum = slider.Maximum * -1;
+            // Adecuar elementos visuales de acuerdo al Rubro
+            tBValorEsperado.Text = currentRubro.RubroValorEsperado.ToString();
+            tBValorActual.Text = currentRubro.RubroValorActual.ToString();
+
+            slider.Maximum = currentRubro.RubroValorEsperado * 10;
+            slider.Minimum = 0;
             slider.SmallChange = 100;
             slider.LargeChange = 100;
-            slider.Value = currentRubro.RubroValor;
+            
+            
+            slider.Value = currentRubro.RubroValorEsperado;
         }
 
-
+        
         private void Sliding(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
-            double cambio = 0;
+            if ((e.NewValue != e.OldValue)&&(e.OldValue != 0))
+            {
+                double cambio = 0;
 
-            cambio = Math.Round ( e.NewValue, 0);            
-            tBValorActual.Text = cambio + "";
+                cambio = Math.Round(e.NewValue, 0);
+                tBValorActual.Text = cambio + "";
+            }
+            
         }
+         
 
 
         private void saveChangesInRubro(object sender, EventArgs e)
         {
-            foreach (RubroPorCiclo rpc in App.ViewModel.RubrosPorCiclos)
+            foreach (Rubro rubro in App.ViewModel.Rubros)
             {
-                if (rpc.Rubro.RubroId == currentRubro.RubroId)
+                if ((rubro.RubroId == currentRubro.RubroId) && (rubro.Ciclo.Cerrado == false))
                 {
-                    rpc.ValorActual = int.Parse(tBValorActual.Text);
-                    MessageBox.Show("El valor actual es = " + rpc.ValorActual);
+                    rubro.RubroValorActual = int.Parse(tBValorActual.Text);
+                    
                 }
             }
-            //returnToMainPage();
+                       
+            
+            returnToMainPage();
         }
 
         private void appBarCancelButton_Click(object sender, EventArgs e)

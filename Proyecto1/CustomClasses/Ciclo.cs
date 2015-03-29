@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data.Linq;
 using System.Data.Linq.Mapping;
 
@@ -11,27 +12,41 @@ namespace Proyecto1.CustomClasses
         public int CicloId { get; set; }
         [Column(CanBeNull = false)]
         public Boolean Cerrado { get; set; }
+        
+
+        /* Commented under the version 1.5
+        private EntitySet<RubroPorCiclo> _rubrosPorCiclo = new EntitySet<RubroPorCiclo>();
+        [Association(Name = "FK_RubrosPorCiclo_Ciclos", Storage = "_rubrosPorCiclo", OtherKey = "cicloId", ThisKey = "CicloId")]
+        private ICollection<RubroPorCiclo> RubrosPorCiclo
+        {
+            get { return _rubrosPorCiclo; }
+            set { _rubrosPorCiclo.Assign(value); }
+        }
+        */
 
     }
 
+    /* Commented under the version 1.5
     // Esta tabla contiene la relación entre Ciclo y Rubro
     [Table]
-    public class RubroPorCiclo
+    class RubroPorCiclo
     {
         [Column(IsPrimaryKey = true, Name = "Rubro")]
         private int rubroId;
         private EntityRef<Rubro> _rubro = new EntityRef<Rubro>();
-        [Association(Name = "FK_RubroPorCiclo_Rubro", IsForeignKey = true, Storage = "_rubro", ThisKey = "rubroId", OtherKey = "RubroId")]
+        [Association(Name = "FK_RubrosPorCiclo_Rubros", IsForeignKey = true, Storage = "_rubro", ThisKey = "rubroId", OtherKey = "RubroId")]
         public Rubro Rubro
         {
             get { return _rubro.Entity; }
-            set { _rubro.Entity = value; }
+            set { _rubro.Entity = value; 
+                    //add this Rubro to NuevoRubro
+            }
         }
 
         [Column(IsPrimaryKey = true, Name = "Ciclo")]
         private int cicloId;
         private EntityRef<Ciclo> _ciclo = new EntityRef<Ciclo>();
-        [Association(Name = "FK_RubroPorCiclo_Ciclo", IsForeignKey = true, Storage = "_ciclo", ThisKey = "cicloId", OtherKey = "CicloId")]
+        [Association(Name = "FK_RubrosPorCiclo_Ciclos", IsForeignKey = true, Storage = "_ciclo", ThisKey = "cicloId", OtherKey = "CicloId")]
         public Ciclo Ciclo
         {
             get { return _ciclo.Entity; }
@@ -83,7 +98,7 @@ namespace Proyecto1.CustomClasses
                }
            }
        }
-       */
+       
 
-    }
+    }*/
 }

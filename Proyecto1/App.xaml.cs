@@ -78,7 +78,7 @@ namespace Proyecto1
             }
 
             //Create the ViewModel object
-            viewModel = new RubroViewModel(RubroDataContext.DBConnectionString); //???
+            viewModel = new RubroViewModel(RubroDataContext.DBConnectionString);
 
             //Query the local DB and load observable Collection
             viewModel.LoadCollectionsFromDatabase();
