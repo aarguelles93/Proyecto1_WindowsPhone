@@ -11,7 +11,8 @@ namespace Proyecto1.ViewModel
     public class RubroViewModel :INotifyPropertyChanged
     {
         private RubroDataContext rubroDB;
-        public Ciclo cicloActual;
+        public Ciclo ultimoCiclo;
+        public Ciclo selectedCiclo;
 
         public RubroViewModel(string rubroDBConnectionString)
         {
@@ -64,9 +65,13 @@ namespace Proyecto1.ViewModel
                 Ciclos.Add(nuevoCiclo);               
             }
 
-            cicloActual = Ciclos.Last();
+            ultimoCiclo = Ciclos.Last();
+            if (selectedCiclo == null)
+            {
+                selectedCiclo = ultimoCiclo;
+            }
 
-            var rubrosInDB = from Rubro rubro in rubroDB.Rubros where (rubro.Ciclo.CicloId == cicloActual.CicloId)
+            var rubrosInDB = from Rubro rubro in rubroDB.Rubros where (rubro.Ciclo.CicloId == selectedCiclo.CicloId)
                              select rubro;
                              
 
@@ -96,9 +101,8 @@ namespace Proyecto1.ViewModel
         //=== NEW CICLE        
         public void StartNewCicle()
         {
-            //Encuentro el ciclo actual y lo cierro
-            
-            cicloActual.Cerrado = true;
+            //Encuentro el ciclo actual y lo cierro            
+            ultimoCiclo.Cerrado = true;
             Ciclo nuevoCiclo = new Ciclo { Cerrado = false };
             //Add to db
             rubroDB.Ciclos.InsertOnSubmit(nuevoCiclo);
@@ -107,9 +111,9 @@ namespace Proyecto1.ViewModel
             Ciclos.Add(nuevoCiclo);
 
             //Llamada a NewCiclce_DuplicateRubros
-            NewCicle_DuplicateRubros(cicloActual, Ciclos.Last());
-            //Actualizo cicloActual
-            cicloActual = nuevoCiclo;
+            NewCicle_DuplicateRubros(ultimoCiclo, Ciclos.Last());
+            //Actualizo variable cicloActual
+            ultimoCiclo = nuevoCiclo;
             
            
             //Vuelvo a consultar la bd

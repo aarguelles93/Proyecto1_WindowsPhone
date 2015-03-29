@@ -27,7 +27,10 @@ namespace Proyecto1
             this.DataContext = App.ViewModel;
 
             //Display current cicle on title
-            PanoramaRubros.Header = "Ciclo "+App.ViewModel.Ciclos.Count + "";
+            PanoramaRubros.Header = "Ciclo "+App.ViewModel.selectedCiclo.CicloId+ "";
+
+            // Nuevo Cambio// Selecciona el último index en listboxcicle
+            
         }      
 
 
@@ -52,6 +55,8 @@ namespace Proyecto1
 
             App.ViewModel.LoadCollectionsFromDatabase();
 
+            
+            
             base.OnNavigatedTo(e);
             
         }
@@ -62,7 +67,9 @@ namespace Proyecto1
             if (RubrosListBox.SelectedIndex != -1)
             {
                 Rubro rubroTemp = (Rubro)RubrosListBox.SelectedItem;
-                NavigationService.Navigate(new Uri("/EditRubro.xaml?parameter="+rubroTemp.RubroId, UriKind.Relative));
+                //Valido que el rubro seleccionado no pertenezca a un ciclo ya cerrado
+                if(rubroTemp.Ciclo.Cerrado == false)
+                    NavigationService.Navigate(new Uri("/EditRubro.xaml?parameter="+rubroTemp.RubroId, UriKind.Relative));  
             }
         }
        
@@ -75,6 +82,19 @@ namespace Proyecto1
             PanoramaRubros.Header = "Ciclo " + App.ViewModel.Ciclos.Count + "";
         }
 
+      
+
+        private void CicloSelected(object sender, GestureEventArgs e)
+        {
+            if (CiclosListBox.SelectedIndex > -1)
+            {
+                Ciclo cicloTemp = (Ciclo)CiclosListBox.SelectedItem;
+                PanoramaRubros.Header = "Ciclo " + cicloTemp.CicloId;
+                App.ViewModel.selectedCiclo = cicloTemp;
+                App.ViewModel.LoadCollectionsFromDatabase();
+            }
+            
+        }
 
     }
 }
