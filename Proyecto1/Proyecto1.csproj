@@ -115,6 +115,7 @@
     <Content Include="Images\appbar.check.rest.png" />
     <Content Include="Images\appbar.edit.rest.png" />
     <Content Include="Images\appbar.transport.ff.rest.png" />
+    <Content Include="Images\Finance-Eur-icon.png" />
     <Content Include="SplashScreenImage.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\Silverlight for Phone\$(TargetFrameworkVersion)\Microsoft.Silverlight.$(TargetFrameworkProfile).Overrides.targets" />

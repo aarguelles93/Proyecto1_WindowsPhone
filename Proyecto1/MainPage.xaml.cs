@@ -17,6 +17,7 @@ namespace Proyecto1
 {
     public partial class MainPage : PhoneApplicationPage
     {
+        private int porcentaje = 30;
 
         // Constructor
         public MainPage()
@@ -57,8 +58,7 @@ namespace Proyecto1
 
             
             
-            base.OnNavigatedTo(e);
-            
+            base.OnNavigatedTo(e);            
         }
 
         private void RubroSelected(object sender, GestureEventArgs e)
@@ -92,8 +92,82 @@ namespace Proyecto1
                 PanoramaRubros.Header = "Ciclo " + cicloTemp.CicloId;
                 App.ViewModel.selectedCiclo = cicloTemp;
                 App.ViewModel.LoadCollectionsFromDatabase();
+
+                LoadStadistics(App.ViewModel.selectedCiclo);
             }
             
+        }
+
+        private void StadisticsLoaded(object sender, RoutedEventArgs e)
+        {
+            //MessageBox.Show("Loaded");
+            LoadStadistics(App.ViewModel.selectedCiclo);
+            
+        }
+
+        private void LoadStadistics(Ciclo cicle)
+        {
+            int ingresosReales = 0; int ingresosEsperados = 0;
+            int egresosReales = 0; int egresosEsperados = 0;
+            int balanceGeneral=0;
+            int balanceIngresos = 0; int balanceEgresos = 0;
+            String balanceString = ""; String notif = "";
+            
+            
+            foreach (Rubro rubro in App.ViewModel.Rubros)
+            {
+                if ((rubro.Ciclo.CicloId == cicle.CicloId))
+                {
+                    if (rubro.RubroTipo == "Ingreso")
+                    {
+                        ingresosReales += rubro.RubroValorActual;
+                        ingresosEsperados += rubro.RubroValorEsperado;
+                    }
+                    else if (rubro.RubroTipo == "Egreso")
+                    {
+                        egresosReales += rubro.RubroValorActual;
+                        egresosEsperados += rubro.RubroValorEsperado;
+                    }
+
+                    //Verificar con porcentaje de tolerancia
+                    //Buscar textblock con el id de rubroactual en su tag y eliminarlo
+                    
+                    int dif = rubro.RubroValorActual - rubro.RubroValorEsperado;                    
+                    if (dif > (100 + porcentaje) * rubro.RubroValorEsperado/100)
+                    {                        
+                        notif += rubro.RubroNombre + " excedió valor esperado: " + dif + "(" + (dif*100/rubro.RubroValorEsperado) + "%)\n";
+                    }
+                }
+            }            
+            //Balance General
+            balanceGeneral = ingresosReales - egresosReales;
+            balanceString += ingresosReales + " - " + egresosReales + " = " + balanceGeneral;
+            tBBalanceGeneral.Text = balanceString;
+            // Balange Ingresos
+            balanceIngresos = ingresosReales - ingresosEsperados;
+            balanceString = ingresosReales + " - " + ingresosEsperados + " = " + balanceIngresos;
+            tBBalanceIngresos.Text = balanceString;
+            //Balance Egresos
+            balanceEgresos = egresosEsperados - egresosReales;
+            balanceString = egresosEsperados +  " - " + egresosReales + " = " + balanceEgresos;
+            tBBalanceEgresos.Text = balanceString;
+            //Notif
+            tBNotifications.Text = notif;
+        }
+
+        
+
+        private void Slider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            if (tbPorcentaje != null)
+            {
+                porcentaje = (int) Math.Round(e.NewValue, 0);
+                tbPorcentaje.Text = "Valor porcentual = " + porcentaje;
+
+                //Recargar estadísticas de acuerdo al nuevo porcentaje
+                LoadStadistics(App.ViewModel.selectedCiclo);
+                
+            }
         }
 
     }
